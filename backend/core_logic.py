@@ -162,10 +162,29 @@ def modify_bat_scripts(*args, **kwargs):
 
     today = datetime.now()
     target_today_str = today.strftime("%Y%m%d")
+    # 對齊範本格式 YYYY/MM/DD
     target_7d_slashes = (today - timedelta(days=7)).strftime("%Y/%m/%d")
 
-    rpt_content = f"@echo on\n\nforfiles /P \"D:\\tiptop_cr\\topprod\\tiptop\\\" /M *.rpt /S /D +{target_7d_slashes} /c \"cmd /c echo @fdate @ftime @path\" > {target_today_str}_tiptop_rpt.csv\npause"
-    xml_content = f"@echo on\n\nforfiles /P \"D:\\tiptop_cr\\topprod\\tiptop\\\" /M *.xml /S /D +{target_7d_slashes} /c \"cmd /c echo @fdate @ftime @path\" > {target_today_str}_tiptop_xml.csv\npause"
+    # 🛠️ 依據 bat.txt 範本完整重構內容，補上 topcust 區塊與 type 指令
+    rpt_content = (
+        f"@echo on\n\n"
+        f"forfiles /P D:\\tiptop_cr\\topprod\\tiptop\\ /M *.rpt /S /D +{target_7d_slashes} /c \"cmd /c echo @fdate @ftime @path\" > {target_today_str}_tiptop_rpt.csv\n\n"
+        f"forfiles /P D:\\tiptop_cr\\topprod\\topcust\\ /M *.rpt /S /D +{target_7d_slashes} /c \"cmd /c echo @fdate @ftime @path\" > {target_today_str}_topcust_rpt.csv\n\n"
+        f"pause\n\n"
+        f"type {target_today_str}_tiptop_rpt.csv\n\n"
+        f"type {target_today_str}_topcust_rpt.csv\n\n"
+        f"pause"
+    )
+
+    xml_content = (
+        f"@echo on\n\n"
+        f"forfiles /P \"D:\\tiptop_cr\\topprod\\tiptop\\\" /M *.xml /S /D +{target_7d_slashes} /c \"cmd /c echo @fdate @ftime @path\" > {target_today_str}_tiptop_xml.csv\n"
+        f"forfiles /P \"D:\\tiptop_cr\\topprod\\topcust\\\" /M *.xml /S /D +{target_7d_slashes} /c \"cmd /c echo @fdate @ftime @path\" > {target_today_str}_topcust_xml.csv\n\n"
+        f"pause\n\n"
+        f"type {target_today_str}_tiptop_xml.csv\n"
+        f"type {target_today_str}_topcust_xml.csv\n\n"
+        f"pause"
+    )
 
     for filename, text_content in [("rpt_diff.bat", rpt_content), ("xml_diff.bat", xml_content)]:
         try:
