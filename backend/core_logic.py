@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import shutil
 import os
 import re
+import openpyxl
 
 def backup_and_rename_by_latest_folder(base_dir_ignored=None, excel_source_path=None):
     """ 【第一階段】自動複製上週 .docx 查核表與複製DataCenter中 程式修改紀錄Excel 檔案 """
@@ -329,10 +330,6 @@ def audit_and_compare_logs(*args, **kwargs):
        - J 欄為 Y ➔ 附件三必須有 {F欄}.rpt
        - K 欄為 Y ➔ 附件三必須有 {F欄}.xml
     """
-    import os
-    import re
-    from datetime import datetime
-    import openpyxl
 
     # 1. 精準承接由執行程序傳進來的本次 Excel 絕對路徑與參數
     excel_path = kwargs.get("excel_path") if "excel_path" in kwargs else (args[0] if len(args) > 0 else None)
