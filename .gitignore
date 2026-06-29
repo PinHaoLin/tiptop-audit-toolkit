@@ -45,3 +45,10 @@ node_modules/
 Thumbs.db
 .vscode/
 .idea/
+
+# 補上根目錄層級的 PyInstaller 產物排除
+/build/
+/dist/
+/aud/
+/*.spec
+/程式修改週覆核記錄-*/
