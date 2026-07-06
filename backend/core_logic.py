@@ -111,7 +111,7 @@ def backup_and_rename_by_latest_folder(base_dir_ignored=None, excel_source_path=
         # 🎯 9. 【核心合併補丁：精準對齊自 App.py 傳入的網碟 EXCEL_SOURCE】
         if excel_source_path:
             print(f"📂 正在從網碟來源複製原始 Excel...\n👉 路徑: {excel_source_path}", flush=True)
-            copy_and_rename_file(excel_source_path, new_folder_path, "GP程式修改記錄_NEW.xlsx")
+            copy_and_rename_file(excel_source_path, new_folder_path, "02.GP程式修改記錄vNEW.xlsx")
         else:
             print("⚠️ 警告：未收到來自前端或後端的 EXCEL_SOURCE 路徑參數，跳過 Excel 複製。", flush=True)
 
@@ -472,11 +472,12 @@ def audit_and_compare_logs(*args, **kwargs):
             if expected_file not in detected_4fd_files:
                 error_logs.append(f"❌ [反向異常] Excel 登記放行: 程式代號 [{row.get('F')}] ➔ 【原因：H 欄為 Y，但在附件二中找不到對應實體檔案 {expected_file}】")
 
-        # C. 檢查 J 欄 (rpt 報表變更放行)
+        # C. 檢查 J 欄 (rpt 報表變更放行 - 🎯 修正：優化支援多語系與客製化後綴，如 cmrr513_0_std.rpt)
         if str(row.get('J', '')).strip().upper() == 'Y':
-            expected_file = f"{f_val}.rpt"
-            if expected_file not in detected_rpt_files:
-                error_logs.append(f"❌ [反向異常] Excel 登記放行: 程式代號 [{row.get('F')}] ➔ 【原因：J 欄為 Y，但在附件三中找不到對應實體檔案 {expected_file}】")
+            # 走訪所有偵測到的 rpt 實體檔案，確認是否有任何一個檔案是以 f_val 開頭
+            has_matched_rpt = any(f_name.startswith(f_val) for f_name in detected_rpt_files)
+            if not has_matched_rpt:
+                error_logs.append(f"❌ [反向異常] Excel 登記放行: 程式代號 [{row.get('F')}] ➔ 【原因：J 欄為 Y，但在附件三中找不到任何以 {f_val} 開頭的實體 .rpt 報表檔案】")
 
         # D. 檢查 K 欄 (xml 規格變更放行)
         if str(row.get('K', '')).strip().upper() == 'Y':

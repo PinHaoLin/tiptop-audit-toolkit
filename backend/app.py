@@ -76,7 +76,7 @@ def run_stage_initial():
         state["target_att_three_name"] = att_three
 
         # 🎯 根據動態日期計算，精準還原備份在本機的 Excel 實體檔案路徑 (提供給後續大比對步驟使用)
-        expected_excel_name = f"GP程式修改記錄_{t_str}.xlsx"
+        expected_excel_name = f"02.GP程式修改記錄v{t_str}.xlsx"
         state["actual_excel_path"] = os.path.join(res_folder, expected_excel_name)
 
         print(f"📌 狀態同步成功：", flush=True)
