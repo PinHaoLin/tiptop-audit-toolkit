@@ -1,0 +1,300 @@
+/* ==========================================================================
+   1. 基礎重設與全局樣式
+   ========================================================================== */
+.app-container {
+  padding: 24px 32px;
+  background: #fafafa;
+  min-height: 100vh;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  box-sizing: border-box;
+}
+
+/* 讓 Antd Space 組件滿寬的輔助類別 */
+.full-width-space {
+  width: 100% !important;
+}
+
+/* ==========================================================================
+   2. 頂部標題與狀態區 (RWD 調整：小螢幕自動換行)
+   ========================================================================== */
+.header-section {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* 支援螢幕寬度不足時自動換行 */
+  gap: 16px;
+}
+
+.header-title-area h3 {
+  margin: 0 !important;
+  font-weight: 600;
+  color: #262626;
+  font-size: 1.5rem;
+}
+
+.tag-status {
+  padding: 6px 16px;
+  font-size: 13px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* 進度條外層卡片 */
+.card-steps {
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  overflow-x: auto; /* 當 Steps 在窄螢幕擠壓時，允許橫向滾動而不破壞佈局 */
+}
+
+/* ==========================================================================
+   3. 主工作區核心排版 (由傳統 Table 升級為 RWD Grid)
+   ========================================================================== */
+.main-layout {
+  width: 100%;
+}
+
+.main-row {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr; /* 預設大螢幕比例 60% : 40% */
+  gap: 24px;
+}
+
+/* 移除舊有的 table-cell 屬性，改由 Grid 控制 */
+.control-panel-cell {
+  width: 100%;
+}
+
+.log-panel-cell {
+  width: 100%;
+}
+
+/* 統一操作與日誌卡片基底 */
+.card-common {
+  border-radius: 8px;
+  min-height: 440px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   4. 元件內部與按鈕排版 (自適應寬度與彈性間距)
+   ========================================================================== */
+.action-center,
+.action-center-orange {
+  text-align: center;
+  padding: 32px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 調整 Alert 內部文字段落的上間距 */
+.alert-paragraph-spacing {
+  margin: 0 !important;
+  padding-top: 6px !important;
+}
+
+/* 按鈕基底增強：窄螢幕時不會縮成一團 */
+.btn-primary-large,
+.btn-orange-large,
+.btn-green-large,
+.btn-deploy {
+  min-width: 200px;
+  max-width: 100%;
+  white-space: normal; /* 允許過長時文字自動換行 */
+  height: auto !important;
+  padding: 12px 24px !important;
+  font-size: 15px;
+  border-radius: 6px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-orange-large {
+  background-color: #fa8c16;
+  border-color: #fa8c16;
+}
+.btn-orange-large:hover {
+  background-color: #d46b08 !important;
+  border-color: #d46b08 !important;
+}
+
+.btn-green-large {
+  background-color: #52c41a;
+  border-color: #52c41a;
+}
+.btn-green-large:hover {
+  background-color: #389e0d !important;
+  border-color: #389e0d !important;
+}
+
+.btn-deploy {
+  background-color: #52c41a;
+  border-color: #52c41a;
+}
+
+/* 🛑 人工防線攔截區與成功狀態區 */
+.success-result-area {
+  text-align: center;
+  padding: 16px 0;
+}
+
+.icon-indicator-warning {
+  margin-bottom: 16px;
+  color: #d46b08;
+}
+
+.icon-indicator-success {
+  margin-bottom: 16px;
+  color: #52c41a;
+}
+
+.audit-lock-title {
+  color: #d46b08 !important;
+  margin-top: 0 !important;
+  margin-bottom: 12px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.success-result-title {
+  color: #52c41a !important;
+  margin-top: 0 !important;
+}
+
+.desc-text {
+  font-size: 14px !important;
+  color: #595959 !important;
+}
+
+.desc-text.mb-sm {
+  margin-bottom: 8px !important;
+}
+
+.action-space-top {
+  margin-top: 24px;
+}
+
+/* 本機暫存路徑 code 區：強化 RWD 防止長路徑撐爆畫面 */
+.report-code-box {
+  background: #f5f5f5;
+  padding: 12px 16px;
+  border-radius: 6px;
+  display: block; /* 改為區塊元素更好控制寬度 */
+  margin: 0 auto 24px auto;
+  max-width: 100%;
+  font-family: monospace;
+  box-sizing: border-box;
+  overflow-x: auto; /* 當路徑過長時，內部提供滾動條，不撐開外卡片 */
+  text-align: left;
+}
+
+.code-text-dark {
+  font-size: 13px !important;
+  color: #262626 !important;
+}
+
+.code-text-normal {
+  font-size: 13px !important;
+}
+
+/* ==========================================================================
+   5. 📄 黑色 Terminal 日誌視窗 (高度自適應彈性)
+   ========================================================================== */
+.terminal-box {
+  background: #1e1e1e;
+  color: #a9b7c6;
+  padding: 16px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 12.5px;
+  flex-grow: 1; /* 自動填滿卡片剩餘高度 */
+  height: 340px; /* 基準高度 */
+  overflow-y: auto;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+}
+
+.terminal-empty {
+  color: #555555;
+}
+
+.log-line {
+  margin-bottom: 4px;
+  word-break: break-all;
+}
+
+/* 日誌文字顏色控管 */
+.log-line-default {
+  color: #a9b7c6;
+}
+.log-line-error {
+  color: #ff6b6b;
+}
+.log-line-info {
+  color: #69db7c;
+}
+.log-line-success {
+  color: #52c41a;
+}
+
+/* ==========================================================================
+   6. 📱 關鍵斷點：Media Queries 響應式設定
+   ========================================================================== */
+
+/* 當螢幕寬度小於等於 1100px 時 (例如較小的筆電或半螢幕檢視) */
+@media screen and (max-width: 1100px) {
+  .app-container {
+    padding: 16px 20px; /* 縮小邊距，留給內容更多空間 */
+  }
+
+  .main-row {
+    grid-template-columns: 1fr; /* 🎯 核心改變：左右並排切換為上下單欄堆疊 */
+    gap: 20px;
+  }
+
+  .card-common {
+    min-height: auto; /* 解除死高度限制，讓內容自適應延伸 */
+  }
+
+  .terminal-box {
+    height: 280px; /* 上下堆疊後，縮短日誌視窗高度，避免畫面拉得過長 */
+  }
+}
+
+/* 當螢幕寬度小於等於 576px 時 (手機或極端窄視窗環境) */
+@media screen and (max-width: 576px) {
+  .header-section {
+    flex-direction: column; /* 標題與連線狀態標籤改為上下相疊 */
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .header-title-area h3 {
+    font-size: 1.25rem; /* 稍微縮小標題字型 */
+  }
+
+  .action-center,
+  .action-center-orange {
+    padding: 16px 0;
+  }
+
+  .btn-primary-large,
+  .btn-orange-large,
+  .btn-green-large,
+  .btn-deploy {
+    width: 100%; /* 按鈕在小螢幕直接撐滿，更好操作點擊 */
+  }
+}
