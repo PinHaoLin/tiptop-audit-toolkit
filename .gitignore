@@ -51,4 +51,9 @@ Thumbs.db
 /dist/
 /aud/
 /*.spec
+
+# Keep the distributable executable and the build spec in the repository.
+!/app.spec
+!/dist/
+!/dist/TIPTOP_Audit_Toolkit.exe
 /程式修改週覆核記錄-*/

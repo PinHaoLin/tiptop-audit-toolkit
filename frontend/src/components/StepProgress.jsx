@@ -1,24 +1,20 @@
-import React from 'react';
 import { Card, Steps } from 'antd';
+
+const items = [
+  { title: '初始化', description: '建立工作區' },
+  { title: 'TipTop', description: '執行 shell' },
+  { title: '附件二', description: '合併 Diff' },
+  { title: 'CR 主機', description: '執行 bat' },
+  { title: '附件三', description: '合併 CSV' },
+  { title: '比對', description: '產出報告' },
+  { title: '確認', description: '人工覆核' },
+  { title: '同步', description: 'DataCenter' },
+];
 
 function StepProgress({ currentStep }) {
   return (
-    <Card className="card-steps" style={{ marginBottom: '16px' }}>
-      <Steps
-        current={currentStep}
-        size="small"
-        labelPlacement="vertical"
-        items={[
-          { title: '環境初始化', description: '建目錄與複製 Excel' },
-          { title: 'TipTop 執行', description: '上傳並執行 shell 檔案' },
-          { title: '處理附件二', description: '合併本機 Diff 檔案' },
-          { title: 'CR 主機執行', description: '上傳並執行 bat 檔案' },
-          { title: '處理附件三', description: '合併本機 CSV 記錄' },
-          { title: '稽核比對', description: '交叉核對系統異動與紀錄' },
-          { title: '上傳最後確認', description: '最終檢視本次檢核報告' },
-          { title: '查核作業完成', description: '上傳至DataCenter' },
-        ]}
-      />
+    <Card className="steps-card">
+      <Steps current={currentStep} size="small" labelPlacement="vertical" items={items} />
     </Card>
   );
 }

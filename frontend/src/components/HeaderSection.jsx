@@ -1,23 +1,27 @@
-import React from 'react';
-import { Typography, Tag } from 'antd';
+import { Tag, Typography } from 'antd';
+import { ShieldCheck } from 'lucide-react';
 
 const { Title, Text } = Typography;
 
-function HeaderSection({ backendConnected }) {
+function HeaderSection({ backendConnected, runtimeInfo }) {
   return (
-    <div className="header-section">
-      <div className="header-title-area">
-        <Title level={3}>TIPTOP GP 程式覆核自動化系統</Title>
-        <Text type="secondary">MIS 每週定期程序修改查核工具 — 生產正式版</Text>
+    <header className="app-header">
+      <div className="brand-mark">
+        <ShieldCheck size={28} />
       </div>
-      <div>
-        {backendConnected ? (
-          <Tag color="success" className="tag-status">● 後端連線正常</Tag>
-        ) : (
-          <Tag color="error" className="tag-status">● 後端尚未連線</Tag>
-        )}
+      <div className="header-copy">
+        <Title level={2}>TIPTOP GP 程式覆核工具</Title>
+        <Text type="secondary">每週程式修改覆核、附件整合與 DataCenter 同步</Text>
       </div>
-    </div>
+      <div className="header-status">
+        <Tag color={backendConnected ? 'success' : 'error'}>
+          {backendConnected ? '後端已連線' : '後端未連線'}
+        </Tag>
+        <Tag color={runtimeInfo?.aud_exists ? 'processing' : 'warning'}>
+          {runtimeInfo?.aud_exists ? 'aud 已就緒' : 'aud 待確認'}
+        </Tag>
+      </div>
+    </header>
   );
 }
 
